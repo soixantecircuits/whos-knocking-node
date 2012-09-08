@@ -1,7 +1,12 @@
 var twitter = require('ntwitter');
+var http = require('http');
 var port = process.env.PORT || 5000;
-var io = require('socket.io').listen(port);
-var twit_feed = {};
+var httpServer = http.createServer(function (request, response) {
+  request.addListener('end', function () {
+            clientFiles.serve(request, response);
+        });
+}).listen(port);
+var io = require('socket.io').listen(httpServer);
 var twit = new twitter({
   consumer_key: 'kbR7mokXfS5Fjlg5qTLyg',
   consumer_secret: 'YQ9OzzIXo3lLxWFOUcLq8bUrxyoDcOfYFo0aLuBoQ',
