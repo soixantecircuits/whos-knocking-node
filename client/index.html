@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+	<head>
+	<meta charset="utf-8">
+		<title>Twitter live stream : NodeJS + Socket.io</title>
+	</head>
+	<body>
+		<ul></ul>
+		<script src="socket.io.min.js"></script>
+		<script>
+  			var socket = io.connect('http://whosknocking.herokuapp.com/');
+  			socket.on('new_tweet', function (data) {
+    			console.log(data);
+  			});
+		</script>
+	</body>
+</html>
