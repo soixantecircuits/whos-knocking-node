@@ -27,9 +27,9 @@ t.stream(
         stream.on('data', function(tweet) {
             //console.log(tweet.text);
             nTwitterCount++;
-            new_tweet = tweet.text;
-				console.log(tweet.text);
-        	io.sockets.emit('new_tweet', new_tweet);
+            //new_tweet = tweet.text;
+			console.log(tweet);
+        	io.sockets.emit('new_tweet', tweet);
         });
         stream.on('error', function (response){
         	console.log(response);
