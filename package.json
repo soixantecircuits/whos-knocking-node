@@ -3,7 +3,7 @@
 	"description": "Twitter server allowing to fetch the twitter stream API and push to a javascript client",
 	"version": "0.0.1",
 	"dependencies": { 
-		"socket.io" : "0.7.7",
+		"socket.io" : "0.9.10",
 		"ntwitter": "0.4.1"
 	},
 	"engines": {
