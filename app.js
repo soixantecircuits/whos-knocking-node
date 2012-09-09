@@ -3,10 +3,11 @@ var credentials = require('./credentials.js');
 var http = require('http');
 var port = process.env.PORT || 5000;
 
+var nTwitterCount = 0;
+
 var httpServer = http.createServer(function (request, response) {
-  request.addListener('end', function () {
-            clientFiles.serve(request, response);
-        });
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.end('Ring the Bell\n'+nTwitterCount);
 }).listen(port);
 
 var io = require('socket.io').listen(httpServer);
@@ -26,6 +27,7 @@ var t = new twitter({
 	    function(stream) {
 	        stream.on('data', function(tweet) {
 	            //console.log(tweet.text);
+	            nTwitterCount++;
 	            new_tweet = tweet.text;
  				console.log(tweet.text);
             	io.sockets.emit('new_tweet', new_tweet);
