@@ -7,7 +7,7 @@
 		<ul></ul>
 		<script src="socket.io.min.js"></script>
 		<script>
-  			var socket = io.connect('http://whosknocking.herokuapp.com/');
+  			var socket = io.connect('http://127.0.0.1:5000/');
   			socket.on('new_tweet', function (data) {
     			console.log(data);
   			});
