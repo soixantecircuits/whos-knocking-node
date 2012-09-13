@@ -1,16 +1,19 @@
 var twitter = require('ntwitter');
+var ts = require('twitter-stream');
+
 try {
     var credentials = require('./credentials.js');
 } catch (err) {
     console.log("Error:", err);
-    console.log("Using environmental credentials.");
-    if (process.env.CONSUMER_KEY != "") {
-        console.log(process.env.CONSUMER_KEY);
+    console.log("===> Using environmental credentials.");
+    if (process.env.CONSUMER_KEY !== "") {
         var credentials = {
             consumer_key: process.env.CONSUMER_KEY,
             consumer_secret: process.env.CONSUMER_SECRET,
             access_token_key: process.env.ACCESS_TOKEN_KEY,
-            access_token_secret: process.env.ACCESS_TOKEN_SECRET
+            access_token_secret: process.env.ACCESS_TOKEN_SECRET,
+            name: process.env.NAME,
+            mdp: process.env.PASS,
         };
     } else {
         exit("no creds");
@@ -39,23 +42,39 @@ app.get('/', function(req, res) {
     res.end('Ring the Bell\n' + nTwitterCount);
 });
 
-
-var new_tweet = {};
-
 var t = new twitter({
     consumer_key: credentials.consumer_key,
     consumer_secret: credentials.consumer_secret,
     access_token_key: credentials.access_token_key,
     access_token_secret: credentials.access_token_secret
 });
+
+var stream = ts.connect({
+  screen_name: credentials.name,
+  password: credentials.mdp,
+  action: 'filter',
+  params: {track: ['Soixantecircuits','#ringthebell']}
+});
+
+stream.on('status', function(status) {
+        nTwitterCount++;
+        console.log(status.text);
+        io.sockets.emit('new_tweet', status.text);
+});
+//Handling error
+stream.on('error', function(error) {
+  console.error(error);
+});
+/*
+
 t.stream('statuses/filter', {
-    track: ['love', 'red']
+    track: ['love','boy']
 }, function(stream) {
     stream.on('data', function(tweet) {
         //console.log(tweet.text);
         nTwitterCount++;
         //new_tweet = tweet.text;
-        console.log(tweet);
+        console.log(tweet.text);
         io.sockets.emit('new_tweet', tweet);
     });
     stream.on('error', function(response) {
@@ -67,4 +86,4 @@ t.stream('statuses/filter', {
     stream.on('destroy', function(response) {
         console.log(response);
     });
-});
+});*/
