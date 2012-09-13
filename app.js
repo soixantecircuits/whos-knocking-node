@@ -5,6 +5,7 @@ try {
     console.log("Error:", err);
     console.log("Using environmental credentials.");
     if (process.env.CONSUMER_KEY != "") {
+        console.log(process.env.CONSUMER_KEY);
         var credentials = {
             consumer_key: process.env.CONSUMER_KEY,
             consumer_secret: process.env.CONSUMER_SECRET,
