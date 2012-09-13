@@ -44,7 +44,7 @@ var t = new twitter({
     access_token_secret: credentials.access_token_secret
 });
 t.stream('statuses/filter', {
-    track: ['soixantecircuits', 'ringthebell']
+    track: ['blue', 'red']
 }, function(stream) {
     stream.on('data', function(tweet) {
         //console.log(tweet.text);
