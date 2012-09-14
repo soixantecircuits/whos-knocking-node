@@ -1,4 +1,3 @@
-var twitter = require('ntwitter');
 var ts = require('twitter-stream');
 
 try {
@@ -42,13 +41,6 @@ app.get('/', function(req, res) {
     res.end('Ring the Bell\n' + nTwitterCount);
 });
 
-/*var t = new twitter({
-    consumer_key: credentials.consumer_key,
-    consumer_secret: credentials.consumer_secret,
-    access_token_key: credentials.access_token_key,
-    access_token_secret: credentials.access_token_secret
-});*/
-
 var stream = ts.connect({
   screen_name: credentials.name,
   password: credentials.mdp,
@@ -59,31 +51,10 @@ var stream = ts.connect({
 stream.on('status', function(status) {
         nTwitterCount++;
         console.log(status.text);
-        io.sockets.emit('new_tweet', status.text);
+        io.sockets.emit('new_tweet', status);
 });
+
 //Handling error
 stream.on('error', function(error) {
   console.error(error);
 });
-/*
-
-t.stream('statuses/filter', {
-    track: ['love','boy']
-}, function(stream) {
-    stream.on('data', function(tweet) {
-        //console.log(tweet.text);
-        nTwitterCount++;
-        //new_tweet = tweet.text;
-        console.log(tweet.text);
-        io.sockets.emit('new_tweet', tweet);
-    });
-    stream.on('error', function(response) {
-        console.log(response);
-    });
-    stream.on('end', function(response) {
-        console.log(response);
-    });
-    stream.on('destroy', function(response) {
-        console.log(response);
-    });
-});*/
