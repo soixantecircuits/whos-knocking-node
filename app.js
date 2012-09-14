@@ -45,13 +45,14 @@ var stream = ts.connect({
   screen_name: credentials.name,
   password: credentials.mdp,
   action: 'filter',
-  params: {track: ['@Soixanteci','#ringthebell']}
+  params: {track: ['#ringthebell']}
 });
 
 stream.on('status', function(status) {
         nTwitterCount++;
         console.log(status.text);
-        io.sockets.emit('new_tweet', status);
+        if (tweet.in_reply_to_user_id_str == '59809818') || (tweet.user.id_str =='59809818')
+            io.sockets.emit('new_tweet', status);
 });
 
 //Handling error
