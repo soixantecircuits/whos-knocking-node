@@ -45,7 +45,7 @@ var stream = ts.connect({
   screen_name: credentials.name,
   password: credentials.mdp,
   action: 'filter',
-  params: {track: ['@Soixantecircuits','#ringthebell']}
+  params: {track: ['@Soixanteci','#ringthebell']}
 });
 
 stream.on('status', function(status) {
