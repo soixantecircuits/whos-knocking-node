@@ -42,12 +42,12 @@ app.get('/', function(req, res) {
     res.end('Ring the Bell\n' + nTwitterCount);
 });
 
-var t = new twitter({
+/*var t = new twitter({
     consumer_key: credentials.consumer_key,
     consumer_secret: credentials.consumer_secret,
     access_token_key: credentials.access_token_key,
     access_token_secret: credentials.access_token_secret
-});
+});*/
 
 var stream = ts.connect({
   screen_name: credentials.name,
