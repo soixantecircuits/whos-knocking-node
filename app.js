@@ -51,7 +51,7 @@ var stream = ts.connect({
 stream.on('status', function(status) {
         nTwitterCount++;
         console.log(status.text);
-        if (tweet.in_reply_to_user_id_str == '59809818') || (tweet.user.id_str =='59809818')
+        if ((tweet.in_reply_to_user_id_str == '59809818') || (tweet.user.id_str =='59809818'))
             io.sockets.emit('new_tweet', status);
 });
 
